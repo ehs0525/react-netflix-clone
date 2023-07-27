@@ -49,11 +49,11 @@ h2 {
   transition: 400ms all ease-in-out;
   transform: scale(1.5);
 }
-.slider__arrow:hover .slider__arrow-left {
+.slider:hover .slider__arrow-left {
   transition: 400ms all ease-in-out;
   visibility: visible;
 }
-.slider__arrow:hover .slider__arrow-right {
+.slider:hover .slider__arrow-right {
   transition: 400ms all ease-in-out;
   visibility: visible;
 }
