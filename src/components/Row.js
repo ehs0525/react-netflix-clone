@@ -2,9 +2,12 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import "./Row.css";
 import axios from "../api/axios";
+import ContentsModal from "./ContentsModal";
 
 const Row = ({ category, id, requestURL, large }) => {
   const [contents, setContents] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selected, setSelected] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,6 +25,9 @@ const Row = ({ category, id, requestURL, large }) => {
   const handleScrollRight = useCallback(() => {
     document.getElementById(id).scrollLeft += window.innerWidth - 80;
   }, [id]);
+  const handleClickContent = useCallback(() => {
+    setIsModalOpen(true);
+  }, []);
 
   return (
     <section className="row">
@@ -43,6 +49,7 @@ const Row = ({ category, id, requestURL, large }) => {
                 large ? content.poster_path : content.backdrop_path
               }`}
               alt={content.name}
+              onClick={handleClickContent}
             />
           ))}
         </div>
@@ -53,6 +60,10 @@ const Row = ({ category, id, requestURL, large }) => {
           </span>
         </div>
       </div>
+
+      {isModalOpen && (
+        <ContentsModal {...selected} setIsModalOpen={setIsModalOpen} />
+      )}
     </section>
   );
 };

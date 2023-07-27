@@ -7,7 +7,7 @@ import requests from "../api/requests";
 
 const Banner = () => {
   const [movie, setMovie] = useState({});
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPlayClicked, setIsPlayClicked] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -27,13 +27,13 @@ const Banner = () => {
   };
 
   const handleClickPlay = useCallback(() => {
-    setIsModalOpen(true);
+    setIsPlayClicked(true);
   }, []);
 
   const truncate = (str, n) =>
     str?.length > n ? str.substr(0, n - 1) + "..." : str;
 
-  if (isModalOpen) {
+  if (isPlayClicked) {
     return (
       <Container>
         <HomeContainer>
