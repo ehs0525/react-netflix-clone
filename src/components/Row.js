@@ -25,9 +25,13 @@ const Row = ({ category, id, requestURL, large }) => {
   const handleScrollRight = useCallback(() => {
     document.getElementById(id).scrollLeft += window.innerWidth - 80;
   }, [id]);
-  const handleClickContent = useCallback(() => {
-    setIsModalOpen(true);
-  }, []);
+  const handleClickContent = useCallback(
+    (content) => () => {
+      setSelected(content);
+      setIsModalOpen(true);
+    },
+    []
+  );
 
   return (
     <section className="row">
@@ -49,7 +53,7 @@ const Row = ({ category, id, requestURL, large }) => {
                 large ? content.poster_path : content.backdrop_path
               }`}
               alt={content.name}
-              onClick={handleClickContent}
+              onClick={handleClickContent(content)}
             />
           ))}
         </div>
