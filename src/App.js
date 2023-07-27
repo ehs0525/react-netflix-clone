@@ -1,41 +1,32 @@
-import logo from "./logo.svg";
+import { Outlet, Route, Routes } from "react-router-dom";
+
 import "./App.css";
 import Nav from "./components/Nav";
-import Banner from "./components/Banner";
-import Row from "./components/Row";
-import requests from "./api/requests";
 import Footer from "./components/Footer";
+import MainPage from "./pages/MainPage";
+import DetailPage from "./pages/DetailPage";
+import SearchPage from "./pages/SearchPage";
+
+const Layout = () => {
+  return (
+    <div>
+      <Nav />
+      <Outlet />
+      <Footer />
+    </div>
+  );
+};
 
 function App() {
   return (
     <div className="App">
-      <Nav />
-      <Banner />
-
-      <Row
-        category="NETFLIX ORIGINALS"
-        id="NO"
-        requestURL={requests.NETFLIX_ORIGINALS}
-        large
-      />
-      <Row category="Trending Now" id="TN" requestURL={requests.TRENDING} />
-      <Row
-        category="Top Rated"
-        id="TR"
-        requestURL={requests.TOP_RATED_MOVIES}
-      />
-      <Row
-        category="Action Movies"
-        id="AM"
-        requestURL={requests.ACTION_MOVIES}
-      />
-      <Row
-        category="Comedy Movies"
-        id="CM"
-        requestURL={requests.COMEDY_MOVIES}
-      />
-
-      <Footer />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<MainPage />} />
+          <Route path=":movieID" element={<DetailPage />} />
+          <Route path="search" element={<SearchPage />} />
+        </Route>
+      </Routes>
     </div>
   );
 }
