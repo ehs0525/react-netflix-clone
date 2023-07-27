@@ -1,6 +1,7 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 
 import "./ContentsModal.css";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 const ContentsModal = ({
   backdrop_path,
@@ -12,6 +13,11 @@ const ContentsModal = ({
   vote_average,
   setIsModalOpen,
 }) => {
+  const modalRef = useRef();
+  useOnClickOutside(modalRef, () => {
+    setIsModalOpen(false);
+  });
+
   const handleClose = useCallback(() => {
     setIsModalOpen(false);
   }, [setIsModalOpen]);
@@ -19,7 +25,7 @@ const ContentsModal = ({
   return (
     <div className="presentation">
       <div className="modal-wrapper">
-        <div className="modal">
+        <div className="modal" ref={modalRef}>
           <span className="modal__close" onClick={handleClose}>
             X
           </span>
