@@ -3,17 +3,19 @@ import { useLocation } from "react-router-dom";
 
 import "./SearchPage.css";
 import axios from "../../api/axios";
+import useDebounce from "../../hooks/useDebounce";
 
 const SearchPage = () => {
   const [searchResults, setSearchResults] = useState([]);
 
   const searchWord = new URLSearchParams(useLocation().search).get("word");
+  const debouncedSearchWord = useDebounce(searchWord, 500);
 
   useEffect(() => {
-    if (!searchWord) return;
+    if (!debouncedSearchWord) return;
 
-    fetchData(searchWord);
-  }, [searchWord]);
+    fetchData(debouncedSearchWord);
+  }, [debouncedSearchWord]);
 
   const fetchData = async (word) => {
     try {
@@ -51,7 +53,10 @@ const SearchPage = () => {
       ) : (
         <section className="no-results">
           <div className="no-results__text">
-            <p>찾고자 하는 검색어 "{searchWord}"에 맞는 컨텐츠가 없습니다.</p>
+            <p>
+              찾고자 하는 검색어 "{debouncedSearchWord}"에 맞는 컨텐츠가
+              없습니다.
+            </p>
           </div>
         </section>
       )}
