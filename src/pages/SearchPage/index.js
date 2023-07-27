@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import "./SearchPage.css";
 import axios from "../../api/axios";
@@ -7,6 +7,8 @@ import useDebounce from "../../hooks/useDebounce";
 
 const SearchPage = () => {
   const [searchResults, setSearchResults] = useState([]);
+
+  const navigate = useNavigate();
 
   const searchWord = new URLSearchParams(useLocation().search).get("word");
   const debouncedSearchWord = useDebounce(searchWord, 500);
@@ -29,6 +31,13 @@ const SearchPage = () => {
     }
   };
 
+  const handleMoreInfo = useCallback(
+    (id) => () => {
+      navigate(`/${id}`);
+    },
+    [navigate]
+  );
+
   return (
     <>
       {searchResults.length > 0 ? (
@@ -39,7 +48,10 @@ const SearchPage = () => {
 
             return (
               <div key={result.id} className="results__content">
-                <div className="results__poster">
+                <div
+                  className="results__poster"
+                  onClick={handleMoreInfo(result.id)}
+                >
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${result.backdrop_path}`}
                     alt={result.name}
