@@ -1,9 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./Nav.css";
 
 const Nav = () => {
   const [isAtTheTop, setIsAtTheTop] = useState(true);
+  const [searchWord, setSearchWord] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -22,6 +26,13 @@ const Nav = () => {
   const handleReload = useCallback(() => {
     window.location.reload();
   }, []);
+  const handleChangeInput = useCallback(
+    (e) => {
+      setSearchWord(e.target.value);
+      navigate(`/search?word=${e.target.value}`);
+    },
+    [navigate]
+  );
 
   return (
     <nav className={`nav ${!isAtTheTop && "nav__black"}`}>
@@ -31,6 +42,15 @@ const Nav = () => {
         className="nav__logo"
         onClick={handleReload}
       />
+
+      <input
+        value={searchWord}
+        onChange={handleChangeInput}
+        className="nav__input"
+        type="text"
+        placeholder="콘텐츠를 검색해주세요."
+      />
+
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
         alt="Netflix avatar"
