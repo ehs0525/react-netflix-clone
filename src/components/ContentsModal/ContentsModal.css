@@ -34,6 +34,7 @@
 }
 .modal__percentage {
   color: #46d369;
+  margin-right: 20px;
 }
 .modal::-webkit-scrollbar {
   display: none;

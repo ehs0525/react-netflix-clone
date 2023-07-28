@@ -116,24 +116,24 @@ h2 {
   align-items: center;
 }
 @media screen and (min-width: 1200px) {
-  .row__poster {
+  .poster {
     max-height: 160px;
   }
-  .row__posterLarge {
+  .poster-large {
     max-height: 360px;
   }
 }
 @media screen and (max-width: 768px) {
-  .row__poster {
+  .poster {
     max-height: 100px;
   }
-  .row__posterLarge {
+  .poster-large {
     max-height: 280px;
   }
 }
 
 .swiper-pagination {
-  text-align: right !important;
+  text-align: center !important;
 }
 
 .swiper-pagination-bullet {
