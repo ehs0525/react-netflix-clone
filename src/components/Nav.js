@@ -24,8 +24,9 @@ const Nav = () => {
   }, []);
 
   const handleReload = useCallback(() => {
-    window.location.reload();
-  }, []);
+    // window.location.reload();
+    navigate("/");
+  }, [navigate]);
   const handleChangeInput = useCallback(
     (e) => {
       setSearchWord(e.target.value);
